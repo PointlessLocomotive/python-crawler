@@ -72,8 +72,11 @@ candidates = [
 print "Opened database successfully"
 for candidate in candidates:
     get_candidate_info(candidate, conn, api )
+    print "all candidate info saved"
     get_followers(candidate, conn, api )
+    print "all followers  saved"
     get_tweets(candidate,conn,api)
+    print "all candidate teweets saved"
     #pass
 
 cur = conn.cursor()
@@ -81,8 +84,8 @@ cur.execute("SELECT follower_id  from followers")
 rows = cur.fetchall()
 for row in rows:
     user = {}
-    user['user_id'] = row[0]
     try:
+        user['user_id'] = row[0]
         get_tweets(user,conn,api)
     except Exception:
         print Exception
