@@ -71,8 +71,8 @@ candidates = [
 
 print "Opened database successfully"
 for candidate in candidates:
-    get_followers(candidate, conn, api )
     get_candidate_info(candidate, conn, api )
+    get_followers(candidate, conn, api )
     get_tweets(candidate,conn,api)
     #pass
 
