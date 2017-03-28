@@ -9,9 +9,15 @@ def get_followers(candidate, conn, api):
     for follower in limit_handled(tweepy.Cursor(api.followers,user_id=candidate).items()):
         follower_count = follower_count+1
         print follower_count
-        if follower.friends_count < 200 and follower.default_profile_image == False:
-            print follower.screen_name
-            cur = conn.cursor()
+
+        cur = conn.cursor()
+        if (follower.friends_count/(follower.followers_count+1)) < 0.1 or follower.default_profile_image == False:
+            print "FAKE: https://twitter.com/"+ follower.screen_name
+            cur.execute("INSERT INTO followers values("+candidate+","+str(follower.id)+",FALSE ) ON CONFLICT DO NOTHING;")
+            print "Operation done successfully";
+            conn.commit()
+        else:
+            print "saved user: https://twitter.com/"+ follower.screen_name
             cur.execute("INSERT INTO followers values("+candidate+","+str(follower.id)+" ) ON CONFLICT DO NOTHING;")
             print "Operation done successfully";
             conn.commit()
