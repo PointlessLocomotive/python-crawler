@@ -7,6 +7,7 @@ import os
 from getFollowers import get_followers
 from getCandidateInfo import get_candidate_info
 from getTweets import get_tweets
+from getSearch import get_hash_tags
 
 consumer_key = os.environ['TWITTER_KEY']
 consumer_secret = os.environ['TWITTER_SECRET']
@@ -28,67 +29,54 @@ host=os.environ['DB_HOST'],
 port="5432")
 
 candidates = [
-    {
-        "user_id": '41421105',
-        "screen_name": 'JosefinaVM',
-        "political_party":'PAN',
-        "political_orientation": 'Derecha'
-    },
-    {
-    "user_id": '3166004946',
-    "screen_name": '@delfinagomeza',
-    "political_party":'Morena',
-    "political_orientation": 'Izquierda'
-  },
-  {
-    "user_id": '39860797',
-    "screen_name": '@alfredodelmazo',
-    "political_party":'PRI',
-    "political_orientation": 'Centro'
-  },
-  {
-    "user_id": '407091449',
-    "screen_name": '@IsidroPastor_',
-    "political_party":'Independiente',
-    "political_orientation": 'Desconocida'
-  },
-  {
-    "user_id": '198668037',
-    "screen_name": '@OscarGonzalezYa',
-    "political_party":'PT',
-    "political_orientation": 'Izquierda'
-  },
+
   {
     "user_id": '583488712',
     "screen_name": '@JuanZepeda_',
     "political_party":'PRD',
-    "political_orientation": 'Izquierda'
-  }
+    "political_orientation": 'Izquierda',
+    "key_words":'Juan Manuel Zepeda Hernández, JMZH, @JuanZepeda_, #JuanSiPuede'
+  },
+  {
+    "user_id": '41421105',
+    "screen_name": '@JosefinaVM',
+    "political_party":'PAN',
+    "political_orientation": 'Derecha',
+    "key_words":'Josefina Vázquez Mota, JVM, @JosefinaVM, #MásQueUnCambio'
+  },
+  {
+    "user_id": '3166004946',
+    "screen_name": '@delfinagomeza',
+    "political_party":'MORENA',
+    "political_orientation": 'Izquierda',
+    "key_words":'Delfina Gómez Álvarez, DGA, @delfinagomeza, #LaEsperanzaSeVota'
+  },
+  {
+    "user_id": '198668037',
+    "screen_name": '@OscarGonzalezYa',
+    "political_party":'PRD',
+    "political_orientation": 'Izquierda',
+    "key_words":'Óscar González Yañez, OGY, @OscarGonzalezYa, #EstoyDeTuLado'
+  },
+ {
+   "user_id": '39860797',
+   "screen_name": '@alfredodelmazo',
+   "political_party":'PRI',
+   "political_orientation": 'Centro',
+   "key_words":'Alfredo del Mazo Maza, AMM, @alfredodelmazo, #FuerteYconTodo'
+ }
+
 
 ]
 
 
-
 print "Opened database successfully"
 for candidate in candidates:
+    print " ***********************current candidate: "+ candidate["screen_name"]+ "*********************************"
     get_candidate_info(candidate, conn, api )
     print "all candidate info saved"
-    get_followers(candidate, conn, api )
-    print "all followers  saved"
     get_tweets(candidate,conn,api)
     print "all candidate teweets saved"
-    #pass
-
-cur = conn.cursor()
-cur.execute("SELECT follower_id  from followers")
-rows = cur.fetchall()
-for row in rows:
-    user = {}
-    try:
-        user['user_id'] = row[0]
-        get_tweets(user,conn,api)
-    except Exception:
-        print Exception
-        pass
-
-conn.close()
+    for word in candidate["key_words"].split(','):
+        get_hash_tags(word, conn, api)
+print "finished"

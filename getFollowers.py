@@ -5,7 +5,7 @@ import os
 
 def get_followers(candidate, conn, api):
     candidate = candidate["user_id"]
-    follower_count = 0;
+    follower_count = 0; 
     for follower in limit_handled(tweepy.Cursor(api.followers,user_id=candidate).items()):
         follower_count = follower_count+1
         print follower_count

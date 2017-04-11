@@ -1,3 +1,2 @@
 #!/bin/sh
-env $(cat variables.env | xargs) $@ 
-
+env $(cat variables-dev.env | xargs) $@ 
