@@ -1,8 +1,8 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8-*-
-import sys
-reload(sys)
-sys.setdefaultencoding("utf-8")
+#import sys
+#reload(sys)
+#sys.setdefaultencoding("utf-8")
 
 import urllib
 
@@ -16,5 +16,5 @@ def get_candidate_info(candidate, conn, api):
     secondInsert = "insert into candidate_stats (candidate_id, follower_number)  values ("+candidate["user_id"]+","+str(user.followers_count)+");"
     cur.execute(firstInsert,(str(user.id),user.screen_name, candidate["political_party"],user.profile_image_url_https,candidate["political_orientation"]))
     cur.execute(secondInsert)
-    print "Operation done successfully";
+    print ("Operation done successfully");
     conn.commit()

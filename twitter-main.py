@@ -4,10 +4,15 @@ import tweepy
 import psycopg2
 import time
 import os
+import indicoio
+
 from getFollowers import get_followers
 from getCandidateInfo import get_candidate_info
 from getTweets import get_tweets
 from getSearch import get_hash_tags
+from indico import get_text_analysis
+
+indicoio.config.api_key = '98b26a72259df5f8df1f280747a6f6d6'
 
 consumer_key = os.environ['TWITTER_KEY']
 consumer_secret = os.environ['TWITTER_SECRET']
@@ -70,13 +75,15 @@ candidates = [
 ]
 
 
-print "Opened database successfully"
+print ("Opened database successfully")
 for candidate in candidates:
-    print " ***********************current candidate: "+ candidate["screen_name"]+ "*********************************"
+    print (" ***********************current candidate: "+ candidate["screen_name"]+ "*********************************")
     get_candidate_info(candidate, conn, api )
-    print "all candidate info saved"
+    print ("all candidate info saved")
     get_tweets(candidate,conn,api)
-    print "all candidate teweets saved"
+    print ("all candidate teweets saved")
     for word in candidate["key_words"].split(','):
         get_hash_tags(word, conn, api)
-print "finished"
+print ("finished")
+
+get_text_analysis(conn, indicoio);

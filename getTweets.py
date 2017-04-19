@@ -15,4 +15,4 @@ def get_tweets(user, conn, api):
         cur.execute(query, (status.id_str, status.user.id_str, status.text, mentions, status.favorite_count,status.retweet_count,0,"{}",status.created_at))
         conn.commit()
 
-    print "getting tweets done successfully"
+    print ("getting tweets done successfully")

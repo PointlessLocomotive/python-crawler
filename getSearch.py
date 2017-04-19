@@ -7,7 +7,7 @@ import json
 def get_hash_tags(search, conn, api):
 
     userTweets = api.search(q=search)
-    
+
     for status in userTweets:
 
         mentions = json.dumps(status.entities['user_mentions'])
@@ -16,4 +16,4 @@ def get_hash_tags(search, conn, api):
         cur.execute(query, (status.id_str, status.user.id_str, status.text, mentions, status.favorite_count,status.retweet_count,0,"{}",status.created_at))
         conn.commit()
 
-    print "getting tweets done successfully"
+    print ("getting tweets done successfully")
