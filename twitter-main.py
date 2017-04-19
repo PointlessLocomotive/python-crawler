@@ -12,7 +12,7 @@ from getTweets import get_tweets
 from getSearch import get_hash_tags
 from indico import get_text_analysis
 
-indicoio.config.api_key = '98b26a72259df5f8df1f280747a6f6d6'
+indicoio.config.api_key = os.environ['INDICO_KEY']
 
 consumer_key = os.environ['TWITTER_KEY']
 consumer_secret = os.environ['TWITTER_SECRET']
