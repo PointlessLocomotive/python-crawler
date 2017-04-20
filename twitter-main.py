@@ -9,6 +9,8 @@ import tweepy
 
 
 import settings
+settings.load_settings('dev')
+
 from getCandidateInfo import get_candidate_info
 from getFollowers import get_followers
 from getSearch import get_hash_tags
@@ -16,7 +18,6 @@ from getTweets import get_tweets
 from indico import get_text_analysis
 from settings import load_settings
 
-settings.load_settings('dev')
 
 consumer_key = os.environ['TWITTER_KEY']
 consumer_secret = os.environ['TWITTER_SECRET']
