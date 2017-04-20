@@ -52,8 +52,9 @@ for candidate in candidates:
         print "all candidate info saved"
         get_tweets(candidate, conn, api)
         print("all candidate teweets saved")
-        for word in candidate["key_words"].split(','):
+        for word in candidate["key_words"]:
                 get_hash_tags(word, conn, api)
 print "done"
 
-get_text_analysis(conn, indicoio)
+get_text_analysis(conn)
+
