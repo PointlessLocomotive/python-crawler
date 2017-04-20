@@ -1,0 +1,41 @@
+[
+    {
+        "user_id": "583488712",
+        "screen_name": "@JuanZepeda_",
+        "political_party": "PRD",
+        "political_orientation": "Izquierda",
+        "key_words": [ "Juan Manuel Zepeda Hernández", "JMZH", "@JuanZepeda_", "#JuanSiPuede" ]
+    },
+    {
+        "user_id": "41421105",
+        "screen_name": "@JosefinaVM",
+        "political_party": "PAN",
+        "political_orientation": "Derecha",
+        "key_words": ["Josefina Vázquez Mota", "JVM", "@JosefinaVM", "#MásQueUnCambio"
+        ]
+    },
+    {
+        "user_id": "3166004946",
+        "screen_name": "@delfinagomeza",
+        "political_party": "MORENA",
+        "political_orientation": "Izquierda",
+        "key_words": ["Delfina Gómez Álvarez", "DGA", "@delfinagomeza", "#LaEsperanzaSeVota"
+        ]
+    },
+    {
+        "user_id": "198668037",
+        "screen_name": "@OscarGonzalezYa",
+        "political_party": "PRD",
+        "political_orientation": "Izquierda",
+        "key_words": ["Óscar González Yañez", "OGY", "@OscarGonzalezYa", "#EstoyDeTuLado"
+        ]
+    },
+    {
+        "user_id": "39860797",
+        "screen_name": "@alfredodelmazo",
+        "political_party": "PRI",
+        "political_orientation": "Centro",
+        "key_words": ["Alfredo del Mazo Maza", "AMM", "@alfredodelmazo", "#FuerteYconTodo"
+        ]
+    }
+]

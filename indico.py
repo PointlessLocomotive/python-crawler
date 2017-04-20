@@ -1,8 +1,12 @@
 import json
 import re
 
+import indicoio
 
-def get_text_analysis(conn, indicoio):
+indicoio.config.api_key = os.environ['INDICO_KEY']
+
+
+def get_text_analysis(conn):
     cur = conn.cursor()
     query = (
         "SELECT tweet_id, text FROM tweets "
@@ -53,4 +57,4 @@ def clean_text(text):
     if re.match(regex, text, 0):
         text = ""
     text = result = re.sub(r"http\S+", "", text)
-    return text;
+    return text

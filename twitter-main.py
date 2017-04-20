@@ -2,24 +2,27 @@
 # -*- coding: utf-8-*-
 import os
 import time
+import json
 
-import indicoio
 import psycopg2
 import tweepy
 
+
+import settings
 from getCandidateInfo import get_candidate_info
 from getFollowers import get_followers
 from getSearch import get_hash_tags
 from getTweets import get_tweets
 from indico import get_text_analysis
+from settings import load_settings
 
-indico_key = os.environ['INDICO_KEY']
+settings.load_settings('dev')
+
 consumer_key = os.environ['TWITTER_KEY']
 consumer_secret = os.environ['TWITTER_SECRET']
 access_token = os.environ['TWITTER_TOKEN']
 access_token_secret = os.environ['TWITTER_TOKEN_SECRET']
 
-indicoio.config.api_key = indico_key
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -30,7 +33,6 @@ api = tweepy.API(
     wait_on_rate_limit=True
 )
 
-
 conn = psycopg2.connect(
     database=os.environ['DB_NAME'],
     user=os.environ['DB_USER'],
@@ -39,43 +41,7 @@ conn = psycopg2.connect(
     port="5432"
 )
 
-candidates = [
-    {
-        "user_id": '583488712',
-        "screen_name": '@JuanZepeda_',
-        "political_party": 'PRD',
-        "political_orientation": 'Izquierda',
-        "key_words": 'Juan Manuel Zepeda Hernández, JMZH, @JuanZepeda_, #JuanSiPuede'
-    },
-    {
-        "user_id": '41421105',
-        "screen_name": '@JosefinaVM',
-        "political_party": 'PAN',
-        "political_orientation": 'Derecha',
-        "key_words": 'Josefina Vázquez Mota, JVM, @JosefinaVM, #MásQueUnCambio'
-    },
-    {
-        "user_id": '3166004946',
-        "screen_name": '@delfinagomeza',
-        "political_party": 'MORENA',
-        "political_orientation": 'Izquierda',
-        "key_words": 'Delfina Gómez Álvarez, DGA, @delfinagomeza, #LaEsperanzaSeVota'
-    },
-    {
-        "user_id": '198668037',
-        "screen_name": '@OscarGonzalezYa',
-        "political_party": 'PRD',
-        "political_orientation": 'Izquierda',
-        "key_words": 'Óscar González Yañez, OGY, @OscarGonzalezYa, #EstoyDeTuLado'
-    },
-    {
-        "user_id": '39860797',
-        "screen_name": '@alfredodelmazo',
-        "political_party": 'PRI',
-        "political_orientation": 'Centro',
-        "key_words": 'Alfredo del Mazo Maza, AMM, @alfredodelmazo, #FuerteYconTodo'
-    }
-]
+candidates = json.load(open('candidates.json'))
 
 print "Opened database successfully"
 
@@ -87,6 +53,6 @@ for candidate in candidates:
         print("all candidate teweets saved")
         for word in candidate["key_words"].split(','):
                 get_hash_tags(word, conn, api)
-print "finished"
+print "done"
 
 get_text_analysis(conn, indicoio)
