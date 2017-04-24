@@ -12,3 +12,4 @@ def load_settings(mode='dev'):
         os.environ['TWITTER_TOKEN'] = "123597227-BVO4fNDGQS0AADFhwz8yH2TSqZJOoZ7nf4Aw8a57"
         os.environ['TWITTER_TOKEN_SECRET'] = "HWqNhdRKzgyg1E3SimL6YyWb8MQ9gDQCPIsYagXvbFdcD"
         os.environ['INDICO_KEY'] = "f90bbbb220baaa2637ec24c0b657deb6"
+        os.environ['INDICO_KEY'] = "a763d4a213b000e0bb356b136e6ea628"
