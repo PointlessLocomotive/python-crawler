@@ -14,12 +14,12 @@ tom = TextAnalysis()
 
 for candidate in candidates:
     print " === current candidate: " + candidate["screen_name"] + " === "
-    crawler.get_candidate_info(candidate, conn, api)
+    crawler.get_candidate_info(candidate)
     print "all candidate info saved"
-    crawler.get_tweets(candidate, conn, api)
+    crawler.get_tweets(candidate)
     print("all candidate teweets saved")
     for word in candidate["key_words"]:
-        crawler.get_hash_tags(word, conn, api)
+        crawler.get_hash_tags(word)
     print "done"
 
 tom.get_text_analysis(conn)
