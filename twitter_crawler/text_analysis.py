@@ -1,6 +1,7 @@
 import json
 import re
 import os
+import psycopg2
 
 import indicoio
 
@@ -35,7 +36,7 @@ class TextAnalysis:
         text = result = re.sub(r"http\S+", "", text)
         return text
 
-    def get_text_analysis():
+    def get_text_analysis(self):
         cur = self.conn.cursor()
         query = (
             "SELECT tweet_id, text FROM tweets "
@@ -45,7 +46,7 @@ class TextAnalysis:
         rows = cur.fetchall()
         for row in rows:
             text = row[1]
-            text = clean_text(text)
+            text = self.clean_text(text)
             id = row[0]
             try:
                 analysis = indicoio.analyze_text(
@@ -64,7 +65,7 @@ class TextAnalysis:
 
                 print "Error with tweet. Id: " + id + " text: " + text
                 if ex.args[0] == 'Input contains one or more empty strings.':
-                    query = "delete from tweets where tweet_id='%d';" % id
+                    query = "delete from tweets where tweet_id='%s';" % id
                     cur.execute(query)
                     self.conn.commit()
                     print('tweet deleted, text= ' + text)

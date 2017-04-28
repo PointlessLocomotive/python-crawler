@@ -22,4 +22,5 @@ for candidate in candidates:
         crawler.get_hash_tags(word)
     print "done"
 
-tom.get_text_analysis(conn)
+tom.get_text_analysis()
+
